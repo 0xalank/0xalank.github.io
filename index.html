@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alan Orwick — Personal Homepage</title>
+<meta name="description" content="Personal homepage of Alan Orwick. CEO of Dominant Strategies, Co-Founder of Quai Network.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #000;
+  background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+/* ── Green textured desktop ── */
+.desktop {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative;
+}
+
+/* Subtle noise */
+.desktop::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+/* ── Mac window ── */
+.window {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+}
+
+/* ── Classic Mac titlebar with horizontal lines ── */
+.titlebar {
+  background: #fff;
+  border-bottom: 2px solid #000;
+  padding: 3px 8px 3px 6px;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  position: relative;
+}
+
+/* Horizontal stripes behind title */
+.titlebar::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  right: 8px;
+  top: 3px;
+  bottom: 3px;
+  background: repeating-linear-gradient(
+    0deg,
+    #000 0px, #000 1px,
+    #fff 1px, #fff 3px
+  );
+}
+
+.close-box {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #000;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+}
+
+.titlebar-icon {
+  width: 13px;
+  height: 13px;
+  margin-left: 6px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+}
+
+.title-text {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 0 8px;
+  margin: 0 auto;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* ── Menu bar ── */
+.menubar {
+  background: #fff;
+  border-bottom: 1px solid #000;
+  padding: 2px 10px;
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.menubar a {
+  color: #000;
+  text-decoration: none;
+  padding: 1px 4px;
+}
+
+.menubar a:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ── Scroll area border ── */
+.scroll-area {
+  border-top: 1px solid #000;
+}
+
+/* ── Content ── */
+.content {
+  padding: 20px 28px 28px;
+  background: #fff;
+}
+
+/* ── Header ── */
+.page-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #000;
+}
+
+.page-header h1 {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: #000;
+  margin: 0 0 2px 0;
+  line-height: 1.1;
+}
+
+.page-header .subtitle {
+  font-size: 11px;
+  color: #333;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.contact-links {
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.contact-links a {
+  color: #000;
+  text-decoration: underline;
+  margin-right: 12px;
+}
+
+.contact-links a:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 2px;
+  margin-right: 8px;
+}
+
+/* ── Sections ── */
+section { margin-bottom: 22px; }
+
+h2 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  margin: 0 0 8px 0;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #000;
+}
+
+h2 .snum {
+  font-family: Geneva, Helvetica, sans-serif;
+  font-size: 10px;
+  color: #555;
+  font-weight: normal;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+}
+
+h3 {
+  font-family: Geneva, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #000;
+  margin: 12px 0 2px 0;
+}
+
+h3 a {
+  font-weight: normal;
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+p { margin: 0 0 7px 0; }
+
+a {
+  color: #000;
+  text-decoration: underline;
+}
+
+a:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 18px 0;
+}
+
+/* ── Bio: inset panel ── */
+.bio-panel {
+  border: 1px solid #000;
+  padding: 9px 14px 9px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  line-height: 20px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 19px,
+      #e8e8e8 19px,
+      #e8e8e8 20px
+    );
+  background-position: 0 9px;
+}
+
+.bio-panel p { margin: 0 0 20px 0; }
+.bio-panel p:last-child { margin-bottom: 0; }
+
+.bio-panel .lead {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 20px;
+}
+
+/* ── Research grid ── */
+.research-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #000;
+}
+
+.research-grid li {
+  padding: 6px 10px;
+  border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  font-size: 12px;
+}
+
+.research-grid li:nth-child(even) {
+  border-right: none;
+}
+
+.research-grid li:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.research-grid li strong {
+  font-weight: bold;
+  display: block;
+  font-size: 12px;
+}
+
+.research-grid li .detail {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 9px;
+  color: #555;
+  display: block;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* ── Projects ── */
+.project-item {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border: 1px solid #999;
+  background: #fff;
+  position: relative;
+}
+
+/* Pixel shadow on project boxes */
+.project-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  border-right: 2px solid #999;
+  border-bottom: 2px solid #999;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.project-item h3 { margin-top: 0; }
+
+.project-item p {
+  font-size: 12px;
+  color: #222;
+  line-height: 1.6;
+  margin: 2px 0 4px 0;
+}
+
+.tech-line {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 9px;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+/* ── Publication ── */
+.pub-entry {
+  padding-left: 24px;
+  position: relative;
+  font-size: 14px;
+}
+
+.pub-entry .pub-num {
+  position: absolute;
+  left: 0;
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 10px;
+  color: #666;
+  top: 2px;
+}
+
+.pub-entry .pub-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.pub-entry .pub-venue {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 9px;
+  color: #666;
+  display: block;
+  margin-top: 2px;
+}
+
+/* ── Repo table ── */
+.repo-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  border: 1px solid #000;
+}
+
+.repo-table thead {
+  background: #000;
+  color: #fff;
+}
+
+.repo-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 8px;
+}
+
+.repo-table td {
+  padding: 3px 8px;
+  border-bottom: 1px solid #ccc;
+  vertical-align: top;
+}
+
+.repo-table tbody tr:hover {
+  background: #000;
+  color: #fff;
+}
+
+.repo-table tbody tr:hover a {
+  color: #fff;
+}
+
+.repo-table tbody tr:hover .rdesc,
+.repo-table tbody tr:hover .rlang,
+.repo-table tbody tr:hover .rstars {
+  color: #fff;
+}
+
+.repo-table .rname {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 10px;
+}
+
+.repo-table .rname a {
+  color: #000;
+}
+
+.repo-table .rdesc {
+  color: #333;
+  font-size: 11px;
+}
+
+.repo-table .rlang {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 9px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.repo-table .rstars {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 10px;
+  text-align: right;
+  color: #333;
+}
+
+.see-more {
+  font-size: 10px;
+  color: #555;
+  margin-top: 6px;
+}
+
+/* ── Footer ── */
+.page-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 2px solid #000;
+}
+
+.page-footer .quote {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  border-left: 3px solid #000;
+  line-height: 1.6;
+}
+
+.page-footer .quote cite {
+  font-style: normal;
+  font-family: Geneva, Helvetica, sans-serif;
+  font-size: 9px;
+  color: #888;
+  display: block;
+  margin-top: 3px;
+}
+
+.page-footer .sign-off {
+  font-size: 10px;
+  color: #888;
+  margin-top: 8px;
+}
+
+/* ── Bottom scrollbar decoration ── */
+.bottom-scroll {
+  background: #fff;
+  border-top: 1px solid #000;
+  height: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-track {
+  flex: 1;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #fff 0px, #fff 1px,
+      #bbb 1px, #bbb 2px
+    );
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  position: relative;
+}
+
+.scroll-thumb {
+  position: absolute;
+  left: 10px;
+  top: 1px;
+  bottom: 1px;
+  width: 60px;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.scroll-arrow {
+  width: 16px;
+  height: 100%;
+  border-left: 1px solid #000;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #000;
+  cursor: default;
+}
+
+.scroll-arrow-l {
+  border-right: 1px solid #000;
+  border-left: none;
+}
+
+/* Size box in corner */
+.size-box {
+  width: 16px;
+  height: 16px;
+  border-left: 1px solid #000;
+  background:
+    linear-gradient(135deg,
+      transparent 60%,
+      #000 60%, #000 65%,
+      transparent 65%, transparent 72%,
+      #000 72%, #000 77%,
+      transparent 77%, transparent 84%,
+      #000 84%, #000 89%,
+      transparent 89%
+    );
+}
+
+/* ── Close box: X appears on hover (authentic Mac behavior) ── */
+.close-box:hover::before,
+.close-box:hover::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  background: transparent;
+}
+.close-box:hover::before {
+  border-top: 1.5px solid #000;
+  transform: rotate(45deg);
+  top: 5px;
+  left: 1px;
+  width: 10px;
+  height: 0;
+}
+.close-box:hover::after {
+  border-top: 1.5px solid #000;
+  transform: rotate(-45deg);
+  top: 5px;
+  left: 1px;
+  width: 10px;
+  height: 0;
+}
+
+/* ── Active/pressed states (instant, no transitions) ── */
+.close-box:active {
+  background: #000;
+}
+.close-box:active:hover::before,
+.close-box:active:hover::after {
+  border-color: #fff;
+}
+
+.menubar a:active {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* ── Repo rows: click-to-select feel ── */
+.repo-table tbody tr {
+  cursor: default;
+}
+
+/* ── Project items: inset on click like a Mac button ── */
+.project-item:active {
+  border-color: #000;
+}
+
+/* ── "About this Mac" dialog ── */
+.about-dialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+  padding: 0;
+  z-index: 1000;
+  width: 340px;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.about-dialog .about-titlebar {
+  background: #fff;
+  border-bottom: 2px solid #000;
+  padding: 3px 8px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.about-dialog .about-titlebar::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 3px;
+  bottom: 3px;
+  background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px);
+}
+
+.about-dialog .about-titlebar span {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 0 6px;
+  margin: 0 auto;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.about-dialog .about-body {
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.about-dialog .about-body .about-logo {
+  font-size: 32px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.about-dialog .about-body .about-name {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.about-dialog .about-body .about-version {
+  font-size: 10px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.about-dialog .about-body p {
+  font-size: 11px;
+  color: #444;
+  margin: 4px 0;
+}
+
+.about-dialog .about-ok {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 3px 24px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  font-family: Geneva, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: default;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+}
+
+.about-dialog .about-ok:active {
+  background: #000;
+  color: #fff;
+}
+
+.about-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+/* ── Cursor: crosshair on desktop (like real Mac Finder) ── */
+.desktop {
+  cursor: crosshair;
+}
+.window, .window * {
+  cursor: default;
+}
+.window a {
+  cursor: pointer;
+}
+
+/* ── Hidden hello (discoverable on titlebar icon hover) ── */
+.titlebar-icon {
+  position: relative;
+}
+.titlebar-icon::after {
+  content: 'hello';
+  position: absolute;
+  top: 20px;
+  left: -4px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 2px 8px;
+  white-space: nowrap;
+  display: none;
+  z-index: 10;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+.titlebar-icon:hover::after {
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .desktop { padding: 12px 8px; }
+  .content { padding: 14px 16px 20px; }
+  .research-grid { grid-template-columns: 1fr; }
+  .research-grid li { border-right: none; }
+  .research-grid li:nth-last-child(-n+2) { border-bottom: 1px solid #aaa; }
+  .research-grid li:last-child { border-bottom: none; }
+  .repo-table .rdesc { display: none; }
+  .page-header h1 { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+  .desktop { padding: 0; }
+  .window { border-width: 1px; box-shadow: none; }
+  .content { padding: 10px 12px 16px; }
+  .contact-links a { display: block; margin-bottom: 3px; }
+}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<!-- ── Classic Mac Titlebar ── -->
+<div class="titlebar">
+  <div class="close-box" onclick="showAbout()"></div>
+  <div class="titlebar-icon" title="About Alan Orwick"></div>
+  <span class="title-text">Alan Orwick / Personal Homepage</span>
+</div>
+
+<!-- ── Menu bar ── -->
+<div class="menubar">
+  <a href="#about">About</a>
+  <a href="#research">Research</a>
+  <a href="#projects">Projects</a>
+  <a href="#publications">Publication</a>
+  <a href="#writing">Writing</a>
+  <a href="#code">Open&nbsp;Source</a>
+</div>
+
+<!-- ── Content ── -->
+<div class="scroll-area">
+<div class="content">
+
+<!-- ════ HEADER ════ -->
+<div class="page-header">
+  <h1>Alan Orwick</h1>
+  <div class="subtitle">
+    CEO, Dominant Strategies &middot; Co-Founder, Quai Network<br>
+    Visiting Scholar, UT Austin
+  </div>
+  <div class="contact-links">
+    <a href="https://x.com/0xalank">X/@0xalank</a>
+    <a href="https://github.com/0xalank">GitHub</a>
+    <a href="https://linkedin.com/in/alanorwick">LinkedIn</a>
+    <a href="mailto:alan@dominantstrategies.io">alan@dominantstrategies.io</a>
+  </div>
+</div>
+
+<!-- ════ ABOUT ════ -->
+<section id="about">
+  <h2><span class="snum">I.</span> About</h2>
+  <div class="bio-panel">
+    <p class="lead">
+      Things I care about: energy-backed money, proof-of-work scaling, open source
+      infrastructure, and the future of technology.
+    </p>
+    <p>
+      Started coding at 12. Studied computer science at UT Austin, founded
+      Texas Blockchain in 2017, taught blockchain and emerging tech courses.
+      Did research on distributed ledger scalability, zero-knowledge, prediction markets, hash functions, cryptography, and more under
+      <a href="https://www.ece.utexas.edu/people/faculty/sriram-vishwanath">Dr.&nbsp;Sriram&nbsp;Vishwanath</a>
+      in the ECE department. That's where I met the people that came together to start Quai Network.
+    </p>
+    <p>
+      After graduation, I was full time at Apple working on supply chain ETL pipelines,
+      analytics, and internal tooling for the Americas org. Started as an intern in
+      Operations Research and stayed on to build systems that people across the org
+      relied on every day. Great training for building infrastructure that actually
+      has to work.
+    </p>
+    <p>
+      Left in 2021 to co-found <a href="https://qu.ai">Quai Network</a> and run
+      <a href="https://dominantstrategies.io">Dominant Strategies</a>. Raised $15M+ from
+      Polychain Capital and Alumni Ventures. Built and validated the only scalable Proof-of-Work blockchain with smart contracts. Visiting scholar work at McCombs,
+      researching blockchain economics under
+      <a href="https://www.mccombs.utexas.edu/faculty-and-research/faculty-directory/cesare-fracassi/">Prof.&nbsp;Fracassi</a>.
+    </p>
+    <p>
+      More recently: building out the Quai ecosystem, decentralized AI inference,
+      Qi (an energy-backed flatcoin),
+      agent payment infrastructure, and a desktop AI assistant called Entropic.
+      Interested in the overlap between adversarial distributed systems and
+      autonomous agents.
+    </p>
+  </div>
+</section>
+
+<!-- ════ RESEARCH ════ -->
+<section id="research">
+  <h2><span class="snum">II.</span> Things I think about</h2>
+  <ul class="research-grid">
+    <li>
+      <strong>Energy-Backed Monetary Systems</strong>
+      <span class="detail">Thermodynamic money &middot; currency tied to energy expenditure &middot; flatcoins &middot; the QI model</span>
+    </li>
+    <li>
+      <strong>Scalable Proof-of-Work Consensus</strong>
+      <span class="detail">Merged mining &middot; hierarchical chains &middot; multi-algorithm PoW &middot; workshare validation</span>
+    </li>
+    <li>
+      <strong>Proof of Entropy Minima (PoEM)</strong>
+      <span class="detail">Intrinsic block weight &middot; objective fork choice &middot; instant consensus &middot; orphan reduction</span>
+    </li>
+    <li>
+      <strong>Privacy-Preserving Transactions</strong>
+      <span class="detail">UTXO models &middot; Schnorr signatures &middot; transaction parallelization &middot; minimal disclosure</span>
+    </li>
+    <li>
+      <strong>Distributed AI Inference</strong>
+      <span class="detail">Agent coordination &middot; on-device models &middot; multi-provider orchestration &middot; skill security</span>
+    </li>
+    <li>
+      <strong>Blockchain Economics &amp; Tokenomics</strong>
+      <span class="detail">Dual-token systems &middot; deflationary emission &middot; game-theoretic rewards &middot; SOAP buybacks</span>
+    </li>
+    <li>
+      <strong>Decentralized Identity &amp; Naming</strong>
+      <span class="detail">On-chain name services &middot; wallet identity &middot; cross-chain address resolution</span>
+    </li>
+    <li>
+      <strong>Mining Infrastructure</strong>
+      <span class="detail">Stratum protocols &middot; non-custodial pools &middot; KawPoW, SHA-256, Scrypt support</span>
+    </li>
+  </ul>
+</section>
+
+<!-- ════ PROJECTS ════ -->
+<section id="projects">
+  <h2><span class="snum">III.</span> Some of the things I work on</h2>
+
+  <div class="project-item">
+    <h3>Quai Network <a href="https://qu.ai">qu.ai</a></h3>
+    <p>
+      Hierarchical proof-of-work blockchain. 50,000+&nbsp;TPS through merged mining and
+      <a href="https://arxiv.org/abs/2303.04305">PoEM</a> consensus. Two tokens: <b>QUAI</b>
+      saves like gold, <b>QI</b> spends like cash. Live since January&nbsp;2025.
+    </p>
+    <span class="tech-line">Go &middot; Solidity &middot; PoW &middot; EVM &middot; 2,400+ stars on GitHub</span>
+  </div>
+
+  <div class="project-item">
+    <h3>SOAP <a href="https://soap.qu.ai">soap.qu.ai</a></h3>
+    <p>
+      Merge-mining protocol that unifies Bitcoin, Litecoin, Dogecoin, and Ravencoin miners.
+      Point existing hardware at SOAP, earn QUAI. Proceeds flow into buybacks and burns.
+    </p>
+    <span class="tech-line">Go &middot; Multi-algorithm merge-mining &middot; Buyback/burn mechanism</span>
+  </div>
+
+  <div class="project-item">
+    <h3>StratumX <a href="https://stratumx.org">stratumx.org</a></h3>
+    <p>
+      Non-custodial mining pool infrastructure for Quai. Multi-node aggregation,
+      real-time dashboard, per-algorithm hashrate tracking. Built from scratch.
+    </p>
+    <span class="tech-line">Go &middot; PostgreSQL &middot; React &middot; WebSocket &middot; Stratum Protocol</span>
+  </div>
+
+  <div class="project-item">
+    <h3>Quai Intelligence <a href="https://github.com/0xnovabyte/quai-intelligence">github</a></h3>
+    <p>
+      Decentralized inference network. GPU miners running Llama&nbsp;70B, DeepSeek&nbsp;V3,
+      Mixtral. Coordinator handles load balancing and model distribution across nodes.
+    </p>
+    <span class="tech-line">C++ &middot; CUDA &middot; Go &middot; Distributed LLM inference</span>
+  </div>
+
+  <div class="project-item">
+    <h3>Qi Agent SDK <a href="https://github.com/0xnovabyte/qi-agent-sdk">github</a></h3>
+    <p>
+      SDK for AI agents to manage wallets and execute payments on Quai autonomously.
+    </p>
+    <span class="tech-line">TypeScript &middot; Agent SDK &middot; Wallet automation</span>
+  </div>
+
+  <div class="project-item">
+    <h3>Entropic <a href="https://entropic.qu.ai">entropic.qu.ai</a></h3>
+    <p>
+      One-click desktop AI agent. Browses, manages files, messages, remembers things,
+      runs code. Multi-provider. Skills security-scanned via
+      <a href="https://github.com/0xalank/skill-scanner">Skill Scanner</a>.
+    </p>
+    <span class="tech-line">TypeScript &middot; Electron &middot; Multi-provider LLM &middot; 241+ stars</span>
+  </div>
+
+  <div class="project-item">
+    <h3>Kipper Money <a href="https://kipper.money">kipper.money</a></h3>
+    <p>
+      Crypto tipping on X. Reply to a post, send QUAI, SOL, or USDC. No wallet popups.
+      15,000+&nbsp;tips sent.
+    </p>
+    <span class="tech-line">TypeScript &middot; QUAI / SOL / USDC &middot; X/Twitter Integration</span>
+  </div>
+
+  <div class="project-item">
+    <h3>Pelagus Wallet <a href="https://github.com/0xalank/pelagus-extension">github</a></h3>
+    <p>
+      Browser wallet for Quai. Nine-chain network, one simple interface.
+    </p>
+    <span class="tech-line">TypeScript &middot; Browser Extension &middot; Multi-chain</span>
+  </div>
+</section>
+
+<!-- ════ PUBLICATION ════ -->
+<section id="publications">
+  <h2><span class="snum">IV.</span> Publication</h2>
+  <div class="pub-entry">
+    <span class="pub-num">[1]</span>
+    <span class="pub-title">Scalable Multi-Chain Coordination via the Hierarchical Longest Chain Rule</span>
+    <span class="pub-venue">Georghiades, Kreder, Downing, <b>Orwick</b>, Vishwanath</span>
+    <span class="pub-venue">IEEE International Conference on Blockchain, 2022 &middot; <a href="https://arxiv.org/abs/2112.11072">arXiv:2112.11072</a></span>
+  </div>
+</section>
+
+<!-- ════ WRITING ════ -->
+<section id="writing">
+  <h2><span class="snum">V.</span> Writing</h2>
+  <ul style="list-style:none;padding:0;margin:0">
+    <li style="padding:4px 0;border-bottom:1px solid #ccc;font-size:13px">
+      <a href="writing/understanding-soap.html"><b>Understanding SOAP Pt. 1</b></a>
+      <span style="font-family:Monaco,'Courier New',monospace;font-size:9px;color:#666;display:block;margin-top:1px">How Quai turns merge-mining into token buybacks via AuxPoW and multi-algorithm workshares</span>
+    </li>
+    <li style="padding:4px 0;border-bottom:1px solid #ccc;font-size:13px">
+      <a href="writing/energy-dollar-for-ai.html"><b>The Currency for the AI Economy</b></a>
+      <span style="font-family:Monaco,'Courier New',monospace;font-size:9px;color:#666;display:block;margin-top:1px">Why traditional crypto fails for AI agents and the case for energy-denominated units of account</span>
+    </li>
+    <li style="padding:4px 0;border-bottom:1px solid #ccc;font-size:13px">
+      <a href="writing/paradox-of-stablecoins.html"><b>The Paradox of Stablecoins</b></a>
+      <span style="font-family:Monaco,'Courier New',monospace;font-size:9px;color:#666;display:block;margin-top:1px">How centralized dependencies undermine blockchain autonomy and create systemic risk</span>
+    </li>
+    <li style="padding:4px 0;border-bottom:1px solid #ccc;font-size:13px">
+      <a href="writing/bitcoin-as-energy-dollar.html"><b>Considering Bitcoin as an Energy Dollar</b></a>
+      <span style="font-family:Monaco,'Courier New',monospace;font-size:9px;color:#666;display:block;margin-top:1px">Why Bitcoin pioneered energy-secured currency but can't be an energy-denominated medium of exchange</span>
+    </li>
+    <li style="padding:4px 0;font-size:13px">
+      <a href="writing/proof-of-stake-is-slow.html"><b>Proof of Stake is Slow</b></a>
+      <span style="font-family:Monaco,'Courier New',monospace;font-size:9px;color:#666;display:block;margin-top:1px">Why PoS consensus overhead limits throughput &mdash; with data from Ethereum, Solana, and Sui</span>
+    </li>
+  </ul>
+</section>
+
+<!-- ════ OPEN SOURCE ════ -->
+<section id="code">
+  <h2><span class="snum">VI.</span> Open Source</h2>
+  <table class="repo-table">
+    <thead>
+      <tr>
+        <th>Repository</th>
+        <th>Description</th>
+        <th>Lang</th>
+        <th style="text-align:right">Stars</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/go-quai">dominant-strategies/go-quai</a></td>
+        <td class="rdesc">Official Go implementation of the Quai protocol</td>
+        <td class="rlang">Go</td>
+        <td class="rstars">2,400</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/entropic">dominant-strategies/entropic</a></td>
+        <td class="rdesc">One-click desktop AI agent (OpenClaw runtime)</td>
+        <td class="rlang">TypeScript</td>
+        <td class="rstars">241</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/0xnovabyte/quai-intelligence">0xnovabyte/quai-intelligence</a></td>
+        <td class="rdesc">Decentralized LLM inference across GPU miners</td>
+        <td class="rlang">C++/CUDA/Go</td>
+        <td class="rstars">&mdash;</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/0xnovabyte/qi-agent-sdk">0xnovabyte/qi-agent-sdk</a></td>
+        <td class="rdesc">Agent-native wallet and payment automation</td>
+        <td class="rlang">TypeScript</td>
+        <td class="rstars">&mdash;</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/quai-gpu-miner">dominant-strategies/quai-gpu-miner</a></td>
+        <td class="rdesc">GPU mining implementation for ProgPow/KawPoW</td>
+        <td class="rlang">C++</td>
+        <td class="rstars">26</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/go-quai-stratum">dominant-strategies/go-quai-stratum</a></td>
+        <td class="rdesc">Stratum proxy for mining pool infrastructure</td>
+        <td class="rlang">Go</td>
+        <td class="rstars">25</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/quais.js">dominant-strategies/quais.js</a></td>
+        <td class="rdesc">JavaScript SDK for Quai Network interactions</td>
+        <td class="rlang">TypeScript</td>
+        <td class="rstars">6</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/quai-cpu-miner">dominant-strategies/quai-cpu-miner</a></td>
+        <td class="rdesc">CPU miner for Quai Network</td>
+        <td class="rlang">Go</td>
+        <td class="rstars">13</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/0xalank/skill-scanner">0xalank/skill-scanner</a></td>
+        <td class="rdesc">Security scanner for AI agent skills</td>
+        <td class="rlang">Python</td>
+        <td class="rstars">&mdash;</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/quai-docs">dominant-strategies/quai-docs</a></td>
+        <td class="rdesc">Open-source protocol documentation</td>
+        <td class="rlang">MDX</td>
+        <td class="rstars">2</td>
+      </tr>
+      <tr>
+        <td class="rname"><a href="https://github.com/dominant-strategies/Quai-Macro-Model">dominant-strategies/Quai-Macro-Model</a></td>
+        <td class="rdesc">Macroeconomic modeling for Quai tokenomics</td>
+        <td class="rlang">Jupyter</td>
+        <td class="rstars">2</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="see-more">
+    See more at <a href="https://github.com/dominant-strategies">github.com/dominant-strategies</a>,
+    <a href="https://github.com/0xalank">github.com/0xalank</a>, and
+    <a href="https://github.com/0xnovabyte">github.com/0xnovabyte</a>
+  </p>
+</section>
+
+<hr>
+
+<!-- ════ FOOTER ════ -->
+<div class="page-footer">
+  <div class="quote">
+    Money should cost something real to produce. That's the whole idea.
+  </div>
+  <p class="sign-off">
+    Alan Orwick &middot; Austin, TX &middot;
+    <a href="mailto:alan@dominantstrategies.io">alan@dominantstrategies.io</a>
+  </p>
+</div>
+
+</div><!-- /.content -->
+</div><!-- /.scroll-area -->
+
+<!-- ── Bottom scrollbar ── -->
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track">
+    <div class="scroll-thumb"></div>
+  </div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div><!-- /.window -->
+
+<!-- ── "About this Macintosh" dialog ── -->
+<div class="about-overlay" id="aboutOverlay" onclick="hideAbout()"></div>
+<div class="about-dialog" id="aboutDialog">
+  <div class="about-titlebar"><span>About Alan Orwick</span></div>
+  <div class="about-body">
+    <span class="about-logo">&#x2318;</span>
+    <div class="about-name">Alan Orwick</div>
+    <div class="about-version">Personal Homepage v1.0 &middot; System 6.0.8</div>
+    <p>Built-in Memory: 128K of ambition</p>
+    <p>Total Memory: Several bear markets worth</p>
+    <p>Largest Unused Block: Sleep</p>
+    <p style="font-size:10px;color:#888;font-style:italic">"The people who are crazy enough to think<br>they can change the world are the ones who do."</p>
+    <div class="about-ok" onclick="hideAbout()">OK</div>
+  </div>
+</div>
+
+</div><!-- /.desktop -->
+
+<script>
+// About dialog
+function showAbout() {
+  document.getElementById('aboutDialog').style.display = 'block';
+  document.getElementById('aboutOverlay').style.display = 'block';
+}
+function hideAbout() {
+  document.getElementById('aboutDialog').style.display = 'none';
+  document.getElementById('aboutOverlay').style.display = 'none';
+}
+
+// Statusbar updates on section scroll
+(function() {
+  var messages = {
+    'about': 'Reading bio\u2026 Started coding at 12.',
+    'research': '8 items \u2014 Energy, PoW, PoEM, Privacy, AI, Economics, Identity, Mining',
+    'projects': '8 projects \u2014 Quai Network, SOAP, StratumX, and more',
+    'publications': '1 item \u2014 IEEE International Conference on Blockchain, 2022',
+    'writing': '5 essays \u2014 Energy dollars, stablecoins, subnets',
+    'code': '11 repositories \u2014 2,400+ stars on go-quai'
+  };
+  var statusEl = document.querySelector('.bottom-scroll .scroll-arrow-l');
+  // Use Intersection Observer for authentic "loading" feel
+  if (!statusEl) return;
+  var statusSpan = document.createElement('span');
+  statusSpan.id = 'statusMsg';
+  statusSpan.style.cssText = 'position:absolute;bottom:20px;left:4px;font-family:Geneva,Helvetica,sans-serif;font-size:10px;color:#666;background:#fff;border:1px solid #000;padding:1px 6px;display:none;white-space:nowrap;box-shadow:2px 2px 0 rgba(0,0,0,0.2);z-index:5';
+  document.querySelector('.window').appendChild(statusSpan);
+
+  var sections = document.querySelectorAll('section[id]');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && messages[entry.target.id]) {
+        statusSpan.textContent = messages[entry.target.id];
+        statusSpan.style.display = 'block';
+        clearTimeout(statusSpan._hide);
+        statusSpan._hide = setTimeout(function() {
+          statusSpan.style.display = 'none';
+        }, 2500);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(function(s) { observer.observe(s); });
+})();
+
+// Konami code Easter egg: ↑↑↓↓←→←→BA
+(function() {
+  var code = [38,38,40,40,37,39,37,39,66,65];
+  var pos = 0;
+  document.addEventListener('keydown', function(e) {
+    if (e.keyCode === code[pos]) {
+      pos++;
+      if (pos === code.length) {
+        pos = 0;
+        // Invert everything like a Mac screen flash
+        document.body.style.filter = 'invert(1)';
+        setTimeout(function() { document.body.style.filter = ''; }, 1500);
+        // Show a special message in title
+        var title = document.querySelector('.title-text');
+        var orig = title.textContent;
+        title.textContent = 'The Crazy Ones / Think Different';
+        setTimeout(function() { title.textContent = orig; }, 3000);
+      }
+    } else {
+      pos = 0;
+    }
+  });
+})();
+
+// Console message for developers who inspect
+console.log('%c\u2318 Alan Orwick — Personal Homepage', 'font-size:16px;font-weight:bold;font-family:Georgia,serif');
+console.log('%cBuilt like it\'s 1984. Shipped like it\'s 2026.', 'font-size:12px;color:#666;font-family:Geneva,Helvetica,sans-serif');
+console.log('%c"The people who are crazy enough to think they can change the world are the ones who do."', 'font-size:11px;font-style:italic;color:#888');
+console.log('%cCurious? → github.com/dominant-strategies', 'font-size:11px;color:#0066CC');
+</script>
+
+</body>
+</html>

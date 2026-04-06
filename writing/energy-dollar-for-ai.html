@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Currency for the AI Economy — Alan Orwick</title>
+<meta name="description" content="Why traditional crypto fails for AI agents and the case for energy-denominated units of account.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #000;
+  background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+.desktop {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative;
+  cursor: crosshair;
+}
+
+.desktop::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+.window {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+  cursor: default;
+}
+
+.window a { cursor: pointer; }
+
+.titlebar {
+  background: #fff;
+  border-bottom: 2px solid #000;
+  padding: 3px 8px 3px 6px;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  position: relative;
+}
+
+.titlebar::before {
+  content: '';
+  position: absolute;
+  left: 28px; right: 8px; top: 3px; bottom: 3px;
+  background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px);
+}
+
+.close-box {
+  width: 13px; height: 13px;
+  border: 1px solid #000;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+}
+
+.close-box:hover::before { content: ''; border-top: 1.5px solid #000; transform: rotate(45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:hover::after { content: ''; border-top: 1.5px solid #000; transform: rotate(-45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:active { background: #000; }
+.close-box:active:hover::before, .close-box:active:hover::after { border-color: #fff; }
+
+.title-text {
+  position: relative; z-index: 1; background: #fff;
+  padding: 0 8px; margin: 0 auto;
+  font-size: 12px; font-weight: bold; white-space: nowrap; letter-spacing: 0.02em;
+}
+
+.menubar {
+  background: #fff; border-bottom: 1px solid #000;
+  padding: 2px 10px; display: flex; gap: 16px; font-size: 12px;
+}
+
+.menubar a { color: #000; text-decoration: none; padding: 1px 4px; }
+.menubar a:hover { background: #000; color: #fff; }
+
+.content { padding: 20px 28px 28px; background: #fff; }
+
+a { color: #000; text-decoration: underline; }
+a:hover { background: #000; color: #fff; text-decoration: none; }
+
+.article-header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #000; }
+.article-header h1 {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 30px; font-weight: 500; color: #000; margin: 0 0 4px 0; line-height: 1.2;
+}
+.article-meta { font-size: 10px; color: #666; font-family: Monaco, 'Courier New', monospace; }
+
+.article-body {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px; line-height: 1.75; color: #111;
+}
+.article-body p { margin: 0 0 16px 0; }
+.article-body h2 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px; font-weight: 600; color: #000;
+  margin: 28px 0 10px 0; padding-bottom: 4px; border-bottom: 1px solid #000;
+}
+.article-body ul { margin: 0 0 16px 0; padding-left: 24px; font-size: 17px; }
+.article-body li { margin-bottom: 6px; line-height: 1.7; }
+.article-body strong { color: #000; }
+
+.back-link { display: inline-block; margin-top: 20px; padding-top: 12px; border-top: 2px solid #000; font-size: 12px; }
+
+.bottom-scroll { background: #fff; border-top: 1px solid #000; height: 16px; display: flex; align-items: center; }
+.scroll-track { flex: 1; height: 100%; background: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, #bbb 1px, #bbb 2px); border-left: 1px solid #000; border-right: 1px solid #000; position: relative; }
+.scroll-thumb { position: absolute; left: 10px; top: 1px; bottom: 1px; width: 60px; background: #fff; border: 1px solid #000; }
+.scroll-arrow { width: 16px; height: 100%; border-left: 1px solid #000; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #000; cursor: default; }
+.scroll-arrow-l { border-right: 1px solid #000; border-left: none; }
+.size-box { width: 16px; height: 16px; border-left: 1px solid #000; background: linear-gradient(135deg, transparent 60%, #000 60%, #000 65%, transparent 65%, transparent 72%, #000 72%, #000 77%, transparent 77%, transparent 84%, #000 84%, #000 89%, transparent 89%); }
+
+@media (max-width: 700px) { .desktop { padding: 12px 8px; } .content { padding: 14px 16px 20px; } .article-header h1 { font-size: 24px; } }
+@media (max-width: 480px) { .desktop { padding: 0; } .window { border-width: 1px; box-shadow: none; } .content { padding: 10px 12px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<div class="titlebar">
+  <a href="../index.html" style="text-decoration:none"><div class="close-box"></div></a>
+  <span class="title-text">The Currency for the AI Economy</span>
+</div>
+
+<div class="menubar">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#writing">All Writing</a>
+</div>
+
+<div class="content">
+
+<div class="article-header">
+  <h1>The Currency for the AI Economy</h1>
+  <div class="article-meta">Energy dollars, FLOPs, and why AI agents need a new kind of money &middot; Alan Orwick</div>
+</div>
+
+<div class="article-body">
+
+<p>In an era where artificial intelligence is rapidly reshaping our technological landscape, we find ourselves at a crossroads of innovation and economic paradigms. As AI systems become more sophisticated and ubiquitous, there's a growing need for a currency that can keep pace with this revolution.</p>
+
+<p>The concept of AI-to-AI transactions is rapidly moving from science fiction to reality. Crypto companies like Coinbase are already exploring and implementing AI payments, with the first AI-to-AI crypto transaction recently executed on the Coinbase Developer platform.</p>
+
+<p>In this context, let's consider the Energy Dollar &mdash; a concept that not only aligns with the fundamental drivers of AI growth but is also a crypto-native solution for AI-to-AI and human-to-AI transactions.</p>
+
+<h2>Why Traditional Cryptocurrencies Fall Short</h2>
+
+<p>AI systems, by design, often operate in isolated environments. These controlled settings are crucial for maintaining security, consistency, and performance. However, this isolation presents a significant challenge when it comes to facilitating payments to AI for executing tasks.</p>
+
+<p>Bitcoin and Ethereum's volatility makes them ill-suited for long-running AI tasks. An AI system initiating a process that might take hours or days to complete could find the value of its compensation fluctuating wildly by the time the task is finished. This unpredictability is antithetical to the precise, deterministic nature of AI operations.</p>
+
+<p>Stablecoins like USDC might seem like a solution, but they come with their own set of problems. Their reliance on oracles for price feeds introduces an element of risk, and their ties to traditional financial systems make them less than ideal for a truly crypto-native AI economy. The AI revolution demands a currency that is as decentralized and trustless as the systems it serves.</p>
+
+<h2>Energy: The Common Denominator of AI Growth</h2>
+
+<p>At the heart of AI's exponential growth lies a simple, yet critical resource: energy. As Sam Altman and Mark Zuckerberg have repeatedly emphasized, the expansion of data centers and computing power is the key driver of AI capabilities.</p>
+
+<p>In fact, data center relative consumption driven by AI is expected to reach up to 9.1% of total U.S. electricity use by 2030, representing a significant leap from just 4% in 2023.</p>
+
+<p>This intrinsic link between energy consumption and AI performance creates a unique opportunity for a currency that directly represents this fundamental relationship. An Energy Dollar, by its very nature, aligns the incentives for AI execution with the costs of energy. This alignment is crucial for several reasons:</p>
+
+<ul>
+  <li><strong>Scalability</strong> &mdash; As AI systems grow more complex and resource-intensive, an energy-based currency allows for proportional scaling of costs. This ensures that the economic model keeps pace with technological advancements.</li>
+  <li><strong>Efficiency</strong> &mdash; By tying currency directly to energy consumption, there's an inherent incentive for developing more energy-efficient AI systems, promoting sustainable growth in the field.</li>
+  <li><strong>Transparency</strong> &mdash; Energy usage is a measurable, objective metric. This provides a clear, understandable basis for pricing AI services and operations.</li>
+</ul>
+
+<h2>FLOPs and Energy Dollars: A Match Made by AGI</h2>
+
+<p>AI agents operate in a world of floating-point operations per second (FLOPs). This metric is deeply ingrained in how AI systems measure their performance and resource utilization. The beauty of the Energy Dollar lies in its natural compatibility with this framework.</p>
+
+<p>By denominating costs in Energy Dollars, we create a seamless accounting system where the currency of transaction aligns perfectly with the currency of computation. This alignment offers several advantages:</p>
+
+<ul>
+  <li><strong>Direct Hardware Integration</strong> &mdash; AI agents can tap directly into the hardware they run on to validate Energy Dollars. This creates a trustless system where the very infrastructure powering AI becomes the arbiter of economic transactions.</li>
+  <li><strong>Precise Cost Allocation</strong> &mdash; With Energy Dollars, AI systems can allocate costs with pinpoint accuracy, down to individual operations if necessary. This granularity allows for highly efficient resource management and pricing models.</li>
+  <li><strong>Simplified Budgeting</strong> &mdash; For developers and organizations deploying AI systems, Energy Dollars provide a straightforward way to budget for AI operations. The direct correlation between energy consumption and currency makes forecasting and cost management more intuitive.</li>
+</ul>
+
+<h2>Proof-of-Work: The Bridge Between AI and Currency</h2>
+
+<p>The concept of Proof-of-Work finds a new and powerful application in the world of AI and Energy Dollars. For AI agents, Proof-of-Work becomes more than just a consensus mechanism &mdash; it's a direct means of value creation.</p>
+
+<p>In this model, AI systems can use their available hardware to mine Energy Dollars. This process serves multiple purposes:</p>
+
+<ul>
+  <li><strong>Direct Value Capture</strong> &mdash; AI agents can generate the currency they need for transactions without relying on external sources or exchanges.</li>
+  <li><strong>Resource Optimization</strong> &mdash; The ability to switch between task execution and currency generation allows AI systems to optimize their resource utilization dynamically.</li>
+  <li><strong>Security and Validation</strong> &mdash; The Proof-of-Work process can serve as a means of validating the integrity and capabilities of AI and blockchain systems, adding an extra layer of security to the AI economy.</li>
+</ul>
+
+<h2>Powering the Future of AI Economics</h2>
+
+<p>The Energy Dollar represents more than just a new form of currency; it's a fundamental rethinking of how we value and transact in the age of AI. By directly tying our medium of exchange to the lifeblood of AI &mdash; energy &mdash; we create a system that is not only more efficient and transparent but also inherently aligned with the goals of AI advancement.</p>
+
+<p>As we stand on the brink of an AI-driven future, the need for a suitable economic framework becomes ever more pressing. The Energy Dollar offers a solution that is as innovative and adaptable as the AI systems it serves. It's a currency built not just for the present state of AI, but for the boundless potential of what AI might become.</p>
+
+<p>In embracing the Energy Dollar, we're not just adopting a new currency &mdash; we're laying the foundation for an economic system that can keep pace with the relentless march of artificial intelligence. It's a bold step towards a future where the lines between computation, energy, and value blur, creating a seamless ecosystem for the continued growth and development of AI.</p>
+
+<p>The future of AI is bright, and with the Energy Dollar, it's also economically sound. As we venture further into this new frontier, let's ensure our economic tools are as advanced as the technologies they support.</p>
+
+<p>The Energy Dollar isn't just a currency for AI &mdash; it's the currency of progress itself.</p>
+
+</div>
+
+<div class="back-link">
+  <a href="../index.html#writing">&larr; Back to homepage</a>
+</div>
+
+</div>
+
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track"><div class="scroll-thumb"></div></div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

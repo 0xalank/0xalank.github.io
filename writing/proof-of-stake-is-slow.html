@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof of Stake is Slow — Alan Orwick</title>
+<meta name="description" content="Why PoS validation is inherently slower than PoW, with data from Ethereum, Solana, and Sui.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0; padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px; line-height: 1.6; color: #000; background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+.desktop {
+  min-height: 100vh; padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative; cursor: crosshair;
+}
+
+.desktop::before {
+  content: ''; position: fixed; inset: 0; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px; pointer-events: none;
+}
+
+.window { max-width: 760px; margin: 0 auto; background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 rgba(0,0,0,0.4); cursor: default; }
+.window a { cursor: pointer; }
+
+.titlebar { background: #fff; border-bottom: 2px solid #000; padding: 3px 8px 3px 6px; display: flex; align-items: center; height: 20px; position: relative; }
+.titlebar::before { content: ''; position: absolute; left: 28px; right: 8px; top: 3px; bottom: 3px; background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px); }
+
+.close-box { width: 13px; height: 13px; border: 1px solid #000; background: #fff; flex-shrink: 0; position: relative; z-index: 1; cursor: default; }
+.close-box:hover::before { content: ''; border-top: 1.5px solid #000; transform: rotate(45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:hover::after { content: ''; border-top: 1.5px solid #000; transform: rotate(-45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:active { background: #000; }
+.close-box:active:hover::before, .close-box:active:hover::after { border-color: #fff; }
+
+.title-text { position: relative; z-index: 1; background: #fff; padding: 0 8px; margin: 0 auto; font-size: 12px; font-weight: bold; white-space: nowrap; letter-spacing: 0.02em; }
+
+.menubar { background: #fff; border-bottom: 1px solid #000; padding: 2px 10px; display: flex; gap: 16px; font-size: 12px; }
+.menubar a { color: #000; text-decoration: none; padding: 1px 4px; }
+.menubar a:hover { background: #000; color: #fff; }
+
+.content { padding: 20px 28px 28px; background: #fff; }
+
+a { color: #000; text-decoration: underline; }
+a:hover { background: #000; color: #fff; text-decoration: none; }
+
+.article-header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #000; }
+.article-header h1 { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; font-size: 30px; font-weight: 500; color: #000; margin: 0 0 4px 0; line-height: 1.2; }
+.article-meta { font-size: 10px; color: #666; font-family: Monaco, 'Courier New', monospace; }
+
+.article-body { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; line-height: 1.75; color: #111; }
+.article-body p { margin: 0 0 16px 0; }
+.article-body h2 { font-family: 'EB Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: #000; margin: 28px 0 10px 0; padding-bottom: 4px; border-bottom: 1px solid #000; }
+.article-body ul { margin: 0 0 16px 0; padding-left: 24px; font-size: 17px; }
+.article-body li { margin-bottom: 6px; line-height: 1.7; }
+.article-body strong { color: #000; }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid #000; margin: 14px 0; font-family: Geneva, Helvetica, sans-serif; }
+.data-table thead { background: #000; color: #fff; }
+.data-table th { text-align: left; font-size: 11px; font-weight: bold; padding: 3px 8px; }
+.data-table td { padding: 3px 8px; border-bottom: 1px solid #ccc; font-size: 12px; }
+.data-table tbody tr:hover { background: #f0f0f0; }
+
+.back-link { display: inline-block; margin-top: 20px; padding-top: 12px; border-top: 2px solid #000; font-size: 12px; }
+
+.bottom-scroll { background: #fff; border-top: 1px solid #000; height: 16px; display: flex; align-items: center; }
+.scroll-track { flex: 1; height: 100%; background: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, #bbb 1px, #bbb 2px); border-left: 1px solid #000; border-right: 1px solid #000; position: relative; }
+.scroll-thumb { position: absolute; left: 10px; top: 1px; bottom: 1px; width: 60px; background: #fff; border: 1px solid #000; }
+.scroll-arrow { width: 16px; height: 100%; border-left: 1px solid #000; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #000; cursor: default; }
+.scroll-arrow-l { border-right: 1px solid #000; border-left: none; }
+.size-box { width: 16px; height: 16px; border-left: 1px solid #000; background: linear-gradient(135deg, transparent 60%, #000 60%, #000 65%, transparent 65%, transparent 72%, #000 72%, #000 77%, transparent 77%, transparent 84%, #000 84%, #000 89%, transparent 89%); }
+
+@media (max-width: 700px) { .desktop { padding: 12px 8px; } .content { padding: 14px 16px 20px; } .article-header h1 { font-size: 24px; } }
+@media (max-width: 480px) { .desktop { padding: 0; } .window { border-width: 1px; box-shadow: none; } .content { padding: 10px 12px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<div class="titlebar">
+  <a href="../index.html" style="text-decoration:none"><div class="close-box"></div></a>
+  <span class="title-text">Proof of Stake is Slow</span>
+</div>
+
+<div class="menubar">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#writing">All Writing</a>
+</div>
+
+<div class="content">
+
+<div class="article-header">
+  <h1>Proof of Stake is Slow</h1>
+  <div class="article-meta">Why PoS consensus overhead limits throughput &mdash; with numbers from Ethereum, Solana, and Sui &middot; Alan Orwick</div>
+</div>
+
+<div class="article-body">
+
+<p>There's a persistent assumption in crypto that Proof of Stake is inherently faster than Proof of Work. The reasoning seems intuitive: no energy-intensive mining, instant validator selection, fast block times. But the data tells a different story. PoS validation is inherently slower than PoW because of one thing: <em>consensus voting overhead</em>.</p>
+
+<h2>The Attestation Problem</h2>
+
+<p>At 500,000 validators, Ethereum requires approximately 1,300 attestations per second just to maintain consensus. That's bandwidth consumed before a single user transaction is processed. Each block carries roughly 3,400 attestations, and the network takes 10+ minutes to reach finalization.</p>
+
+<p>This is fundamental to PoS design. Every validator must vote on every block. The more decentralized the network (more validators), the more bandwidth consumed by voting, and the less bandwidth available for actual user transactions.</p>
+
+<h2>Solana: The Vote Transaction Tax</h2>
+
+<p>Solana claims ~3,600 TPS. But roughly half of those transactions are vote transactions &mdash; validators communicating consensus, not users transacting value. When Solana reports throughput numbers, they include the consensus overhead as "transactions." The actual user throughput is significantly lower than the headline number.</p>
+
+<p>This isn't a Solana-specific problem. It's a PoS-specific problem. Any PoS network must dedicate bandwidth to validator coordination.</p>
+
+<h2>Even Mysticeti Has Tradeoffs</h2>
+
+<p>Sui's Mysticeti consensus protocol achieves impressive latency through a 3-round Byzantine consensus mechanism. But it still requires message passing between validators. Every optimization in PoS consensus is an optimization of a fundamentally bounded process: getting a supermajority of validators to agree through explicit communication.</p>
+
+<h2>PoW Sidesteps the Problem Entirely</h2>
+
+<p>Proof-of-work consensus doesn't require validators to vote. A miner finds a valid block, broadcasts it, and the heaviest chain wins. There is no attestation overhead, no vote transactions, no multi-round consensus protocol. All network bandwidth is available for user transactions.</p>
+
+<p>PoEM (Proof of Entropy Minima) enhances this further with single-round consensus. Because PoEM provides an objective, deterministic fork-choice rule based on intrinsic block weight, nodes can independently determine the canonical chain without any message passing beyond block propagation itself.</p>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Metric</th><th>PoEM (PoW)</th><th>Traditional PoW</th><th>Improvement</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Confirmation latency</td><td>Lower</td><td>Baseline</td><td>28.5%</td></tr>
+    <tr><td>Throughput</td><td>Higher</td><td>Baseline</td><td>16.3%</td></tr>
+    <tr><td>Consensus rounds</td><td>1 (implicit)</td><td>1 (implicit)</td><td>&mdash;</td></tr>
+    <tr><td>Signature overhead</td><td>None</td><td>None</td><td>&mdash;</td></tr>
+  </tbody>
+</table>
+
+<h2>The Scalability Paradox</h2>
+
+<p>PoS networks face a fundamental tension: more validators means more decentralization but less throughput. You can't scale both simultaneously without accepting tradeoffs &mdash; typically centralization (fewer validators) or complexity (sharding the validator set).</p>
+
+<p>PoW networks face no such tradeoff. Adding more miners increases security without consuming any network bandwidth for consensus coordination. The consensus mechanism scales independently of the number of participants.</p>
+
+<h2>The Tragedy of Abandoned Innovation</h2>
+
+<p>It's a tragedy that Proof of Work innovation has largely been abandoned by the broader crypto industry. The narrative shifted to PoS as the "next generation" consensus mechanism, but the fundamental bandwidth economics favor PoW for throughput-optimized networks.</p>
+
+<p>PoS solved a real problem &mdash; energy efficiency &mdash; but created a new one: consensus overhead that grows with decentralization. The future of high-throughput blockchain is likely PoW, not despite the energy cost, but because of what that energy buys: consensus without coordination.</p>
+
+</div>
+
+<div class="back-link">
+  <a href="../index.html#writing">&larr; Back to homepage</a>
+</div>
+
+</div>
+
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track"><div class="scroll-thumb"></div></div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

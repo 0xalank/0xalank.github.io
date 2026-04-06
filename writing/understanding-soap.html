@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Understanding SOAP Pt. 1 — Alan Orwick</title>
+<meta name="description" content="How Quai turns merge-mining into token buybacks through the SOAP subsidy model.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #000;
+  background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+.desktop {
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative;
+  cursor: crosshair;
+}
+
+.desktop::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+.window {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+  cursor: default;
+}
+
+.window a { cursor: pointer; }
+
+.titlebar {
+  background: #fff;
+  border-bottom: 2px solid #000;
+  padding: 3px 8px 3px 6px;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  position: relative;
+}
+
+.titlebar::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  right: 8px;
+  top: 3px;
+  bottom: 3px;
+  background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px);
+}
+
+.close-box {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #000;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+}
+
+.close-box:hover::before,
+.close-box:hover::after {
+  content: '';
+  position: absolute;
+}
+.close-box:hover::before {
+  border-top: 1.5px solid #000;
+  transform: rotate(45deg);
+  top: 5px; left: 1px; width: 10px; height: 0;
+}
+.close-box:hover::after {
+  border-top: 1.5px solid #000;
+  transform: rotate(-45deg);
+  top: 5px; left: 1px; width: 10px; height: 0;
+}
+.close-box:active { background: #000; }
+.close-box:active:hover::before,
+.close-box:active:hover::after { border-color: #fff; }
+
+.title-text {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 0 8px;
+  margin: 0 auto;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.menubar {
+  background: #fff;
+  border-bottom: 1px solid #000;
+  padding: 2px 10px;
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.menubar a {
+  color: #000;
+  text-decoration: none;
+  padding: 1px 4px;
+}
+.menubar a:hover { background: #000; color: #fff; }
+.menubar a:active { background: #000 !important; color: #fff !important; }
+
+.content {
+  padding: 20px 28px 28px;
+  background: #fff;
+}
+
+a { color: #000; text-decoration: underline; }
+a:hover { background: #000; color: #fff; text-decoration: none; }
+
+.article-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #000;
+}
+
+.article-header h1 {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #000;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.article-meta {
+  font-size: 10px;
+  color: #666;
+  font-family: Monaco, 'Courier New', monospace;
+}
+
+.article-body {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #111;
+}
+
+.article-body p {
+  margin: 0 0 16px 0;
+}
+
+.article-body h2 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  margin: 28px 0 10px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #000;
+}
+
+.article-body ul {
+  margin: 0 0 16px 0;
+  padding-left: 24px;
+  font-size: 17px;
+}
+
+.article-body li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+.article-body strong {
+  color: #000;
+}
+
+.article-body code {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 14px;
+  background: #f0f0f0;
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 2px solid #000;
+  font-size: 12px;
+}
+
+.bottom-scroll {
+  background: #fff;
+  border-top: 1px solid #000;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-track {
+  flex: 1;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, #bbb 1px, #bbb 2px);
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  position: relative;
+}
+
+.scroll-thumb {
+  position: absolute;
+  left: 10px; top: 1px; bottom: 1px;
+  width: 60px;
+  background: #fff;
+  border: 1px solid #000;
+}
+
+.scroll-arrow {
+  width: 16px;
+  height: 100%;
+  border-left: 1px solid #000;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #000;
+  cursor: default;
+}
+
+.scroll-arrow-l {
+  border-right: 1px solid #000;
+  border-left: none;
+}
+
+.size-box {
+  width: 16px;
+  height: 16px;
+  border-left: 1px solid #000;
+  background: linear-gradient(135deg,
+    transparent 60%, #000 60%, #000 65%,
+    transparent 65%, transparent 72%,
+    #000 72%, #000 77%,
+    transparent 77%, transparent 84%,
+    #000 84%, #000 89%,
+    transparent 89%);
+}
+
+@media (max-width: 700px) {
+  .desktop { padding: 12px 8px; }
+  .content { padding: 14px 16px 20px; }
+  .article-header h1 { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .desktop { padding: 0; }
+  .window { border-width: 1px; box-shadow: none; }
+  .content { padding: 10px 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<div class="titlebar">
+  <a href="../index.html" style="text-decoration:none"><div class="close-box"></div></a>
+  <span class="title-text">Understanding SOAP Pt. 1</span>
+</div>
+
+<div class="menubar">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#writing">All Writing</a>
+</div>
+
+<div class="content">
+
+<div class="article-header">
+  <h1>Understanding SOAP Pt. 1</h1>
+  <div class="article-meta">How Quai turns merge-mining into token buybacks &middot; Alan Orwick</div>
+</div>
+
+<div class="article-body">
+
+<p>Bitcoin miners point their hardware at a single chain, competing to solve blocks and earn rewards. But what if you could point that same hardware at multiple chains simultaneously, earning rewards from both? This is the core insight behind merge-mining, a technique that lets miners work on two or more blockchains at once without splitting their computational power.</p>
+
+<p>The most famous example is Namecoin, which was merge-mined with Bitcoin starting in 2011. The idea is elegant: when mining Bitcoin, you include a reference to a Namecoin block in your Bitcoin block's coinbase transaction. If your Bitcoin block is valid, you can also claim the Namecoin block reward. You're doing one proof-of-work computation, but getting credit on two chains.</p>
+
+<p>Litecoin and Dogecoin later implemented a more sophisticated version where DOGE miners could simultaneously mine LTC. This created a symbiotic relationship: Dogecoin gained security from Litecoin's hashrate, while Litecoin miners earned additional revenue from DOGE rewards.</p>
+
+<p>But here's the opportunity that inspired SOAP: in traditional merge-mining, the miner receives block rewards from both the parent (e.g., Bitcoin Cash) and the child (e.g., Namecoin) chains directly into their wallet, which means the child chain is effectively paying miners for security, but those miners often immediately sell the child chain's token, creating ongoing selling pressure.</p>
+
+<p>What if we could channel that flow into permanent protocol support?</p>
+
+<h2>The SOAP Subsidy Model</h2>
+
+<p>SOAP transforms merge-mining into a protocol subsidy mechanism. Instead of miners receiving the parent chain's block reward directly, SOAP routes 100% of the parent chain's coinbase output to a protocol-controlled address. That address then converts the parent chain tokens to QUAI at market, and either burns the purchased QUAI or routes it to time-locked staking rewards.</p>
+
+<p>When you mine QUAI with SOAP enabled, you earn QUAI block rewards as you normally would. SOAP doesn't change that. What SOAP adds is the ability to also contribute hashrate from other chains (BCH, LTC, DOGE, RVN) through workshares/blocks to provide a protocol subsidy. The economic proposition: you're mining QUAI and getting paid in QUAI, but your parent chain block subsidy goes to the protocol.</p>
+
+<p>For miners focused purely on QUAI, nothing changes. For miners with existing BCH/LTC/DOGE hardware, SOAP offers a way to earn QUAI. You point your SHA256d or Scrypt rigs at SOAP-enabled pools to mine QUAI while the merge-mined BCH/LTC/DOGE is used for buybacks.</p>
+
+<p>The key insight: SOAP automatically includes valid parent chain merge-mining to create an ongoing protocol subsidy. In the worst case, this creates net-zero daily flow: miners sell their QUAI, the protocol buys QUAI with parent chain subsidies. In practice, some miners hold rather than immediately dumping, producing net positive buy pressure.</p>
+
+<h2>Technical Structure: AuxPoW</h2>
+
+<p>AuxPoW is an SPV-style proof consisting of: the parent chain's 80-byte block header (120 bytes for KAWPOW), the coinbase transaction, a Merkle branch proving coinbase inclusion, and metadata identifying which parent chain this is from.</p>
+
+<p>Quai nodes verify:</p>
+<ul>
+  <li><strong>Merkle verification</strong> &mdash; coinbase is included in the parent block</li>
+  <li><strong>Commitment check</strong> &mdash; magic bytes <code>SOAP 0x01</code> followed by 32-byte hash of Quai WorkObject</li>
+  <li><strong>Payout check</strong> &mdash; 100% to protocol address QADDR</li>
+  <li><strong>Optional PoW verification</strong> &mdash; parent chain block meets difficulty</li>
+</ul>
+
+<p>The SOAP commitment goes in the coinbase's <code>scriptSig</code> after BIP34 height push, maintaining Stratum v1 compatibility without firmware changes.</p>
+
+<h2>Workshares and Multi-Algorithm Mining</h2>
+
+<p>Quai blocks are authored exclusively by KAWPOW miners. But other algorithms (SHA256d from BCH, Scrypt from LTC/DOGE, and KAWPOW itself) can submit workshares included in KAWPOW blocks for QUAI rewards.</p>
+
+<p>Workshares are WorkObjects that do NOT meet block difficulty but DO include valid AuxPoW proving parent chain participation. Each workshare proves parent chain computation referencing a Quai WorkObject with payment to QADDR.</p>
+
+<p>KAWPOW block producers can include up to 9 workshares per block (hard cap), soft target of 3, with separate difficulty adjustment per algorithm.</p>
+
+<h2>Workshares Add Weight and Provide Security</h2>
+
+<p>Workshares contribute to block weight and economic finality through entropy measurement via PoEM and Proportional Reward Splitting (PRS). A block with workshares has measurably more weight, making it harder to reorg and contributing to faster economic finality.</p>
+
+<h2>Why Miners Participate</h2>
+
+<p>Parent chain miners receive QUAI rewards proportional to workshare submissions. KAWPOW block producers receive standard QUAI block rewards plus benefit from SOAP buy pressure.</p>
+
+<h2>Governance and Rotation</h2>
+
+<p>Committee-based governance with signed AuxTemplates specifying chain parameters, payout scripts, and more. Templates are signed by a threshold of committee members.</p>
+
+<h2>Security and Liveness</h2>
+
+<p>SOAP fails gracefully. If parent chain participation drops to zero, Quai keeps producing KAWPOW blocks normally. No liveness coupling. Workshares are purely additive.</p>
+
+<h2>Summary</h2>
+
+<p>SOAP transforms traditional merge-mining into a protocol subsidy mechanism. Technically it uses AuxPoW structures with commitments in coinbase scriptSigs. Quai blocks are KAWPOW-only but workshares from other algorithms can be included. SOAP's success depends on market mechanics &mdash; but the architecture is designed so the protocol always comes out ahead.</p>
+
+</div>
+
+<div class="back-link">
+  <a href="../index.html#writing">&larr; Back to homepage</a>
+</div>
+
+</div><!-- /.content -->
+
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track"><div class="scroll-thumb"></div></div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div><!-- /.window -->
+</div><!-- /.desktop -->
+
+</body>
+</html>

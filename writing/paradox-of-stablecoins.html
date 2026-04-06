@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Paradox of Stablecoins — Alan Orwick</title>
+<meta name="description" content="How centralized stablecoin dependencies undermine blockchain autonomy and create systemic risk.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0; padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px; line-height: 1.6; color: #000; background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+.desktop {
+  min-height: 100vh; padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative; cursor: crosshair;
+}
+
+.desktop::before {
+  content: ''; position: fixed; inset: 0; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px; pointer-events: none;
+}
+
+.window { max-width: 760px; margin: 0 auto; background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 rgba(0,0,0,0.4); cursor: default; }
+.window a { cursor: pointer; }
+
+.titlebar { background: #fff; border-bottom: 2px solid #000; padding: 3px 8px 3px 6px; display: flex; align-items: center; height: 20px; position: relative; }
+.titlebar::before { content: ''; position: absolute; left: 28px; right: 8px; top: 3px; bottom: 3px; background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px); }
+
+.close-box { width: 13px; height: 13px; border: 1px solid #000; background: #fff; flex-shrink: 0; position: relative; z-index: 1; cursor: default; }
+.close-box:hover::before { content: ''; border-top: 1.5px solid #000; transform: rotate(45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:hover::after { content: ''; border-top: 1.5px solid #000; transform: rotate(-45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:active { background: #000; }
+.close-box:active:hover::before, .close-box:active:hover::after { border-color: #fff; }
+
+.title-text { position: relative; z-index: 1; background: #fff; padding: 0 8px; margin: 0 auto; font-size: 12px; font-weight: bold; white-space: nowrap; letter-spacing: 0.02em; }
+
+.menubar { background: #fff; border-bottom: 1px solid #000; padding: 2px 10px; display: flex; gap: 16px; font-size: 12px; }
+.menubar a { color: #000; text-decoration: none; padding: 1px 4px; }
+.menubar a:hover { background: #000; color: #fff; }
+
+.content { padding: 20px 28px 28px; background: #fff; }
+
+a { color: #000; text-decoration: underline; }
+a:hover { background: #000; color: #fff; text-decoration: none; }
+
+.article-header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #000; }
+.article-header h1 { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; font-size: 30px; font-weight: 500; color: #000; margin: 0 0 4px 0; line-height: 1.2; }
+.article-meta { font-size: 10px; color: #666; font-family: Monaco, 'Courier New', monospace; }
+
+.article-body { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; line-height: 1.75; color: #111; }
+.article-body p { margin: 0 0 16px 0; }
+.article-body h2 { font-family: 'EB Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: #000; margin: 28px 0 10px 0; padding-bottom: 4px; border-bottom: 1px solid #000; }
+.article-body ul { margin: 0 0 16px 0; padding-left: 24px; font-size: 17px; }
+.article-body li { margin-bottom: 6px; line-height: 1.7; }
+.article-body strong { color: #000; }
+
+.back-link { display: inline-block; margin-top: 20px; padding-top: 12px; border-top: 2px solid #000; font-size: 12px; }
+
+.bottom-scroll { background: #fff; border-top: 1px solid #000; height: 16px; display: flex; align-items: center; }
+.scroll-track { flex: 1; height: 100%; background: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, #bbb 1px, #bbb 2px); border-left: 1px solid #000; border-right: 1px solid #000; position: relative; }
+.scroll-thumb { position: absolute; left: 10px; top: 1px; bottom: 1px; width: 60px; background: #fff; border: 1px solid #000; }
+.scroll-arrow { width: 16px; height: 100%; border-left: 1px solid #000; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #000; cursor: default; }
+.scroll-arrow-l { border-right: 1px solid #000; border-left: none; }
+.size-box { width: 16px; height: 16px; border-left: 1px solid #000; background: linear-gradient(135deg, transparent 60%, #000 60%, #000 65%, transparent 65%, transparent 72%, #000 72%, #000 77%, transparent 77%, transparent 84%, #000 84%, #000 89%, transparent 89%); }
+
+@media (max-width: 700px) { .desktop { padding: 12px 8px; } .content { padding: 14px 16px 20px; } .article-header h1 { font-size: 24px; } }
+@media (max-width: 480px) { .desktop { padding: 0; } .window { border-width: 1px; box-shadow: none; } .content { padding: 10px 12px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<div class="titlebar">
+  <a href="../index.html" style="text-decoration:none"><div class="close-box"></div></a>
+  <span class="title-text">The Paradox of Stablecoins</span>
+</div>
+
+<div class="menubar">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#writing">All Writing</a>
+</div>
+
+<div class="content">
+
+<div class="article-header">
+  <h1>The Paradox of Stablecoins: The Savior or Achilles' Heel of Crypto?</h1>
+  <div class="article-meta">How centralized dependencies undermine blockchain autonomy &middot; Alan Orwick</div>
+</div>
+
+<div class="article-body">
+
+<p>Stablecoins are the backbone of crypto liquidity. They settle billions daily, power DeFi, and onboard users who can't stomach volatility. But look closer, and stablecoins function more like Visa and Mastercard running on a blockchain than anything Satoshi envisioned. They are the savior of crypto adoption and its greatest systemic risk.</p>
+
+<h2>The SVB Wake-Up Call</h2>
+
+<p>When Silicon Valley Bank collapsed, USDC &mdash; supposedly the "safe" stablecoin &mdash; de-pegged to $0.84. Circle had $3.3 billion of USDC reserves sitting in SVB. In a single weekend, the most trusted stablecoin in DeFi demonstrated exactly how fragile the bridge to traditional finance really is.</p>
+
+<p>This wasn't a black swan. It was an inevitable consequence of design: any token whose value depends on assets held in the banking system inherits every risk of that banking system. Bank runs, regulatory seizures, counterparty failures &mdash; all of it flows upstream into "decentralized" finance.</p>
+
+<h2>Dependencies That Destroy Independence</h2>
+
+<p>Every major stablecoin carries centralization vectors that undermine the very blockchains they run on:</p>
+
+<ul>
+  <li><strong>USDT/USDC</strong> &mdash; Centralized issuers who can freeze addresses, censor transactions, and are subject to government orders</li>
+  <li><strong>DAI</strong> &mdash; Marketed as decentralized, yet approximately 48% of its collateral backing comes from centralized stablecoins</li>
+  <li><strong>Algorithmic stablecoins</strong> &mdash; LUNA/UST demonstrated the catastrophic failure mode: $40 billion evaporated in days</li>
+</ul>
+
+<h2>Dollar Dominance in Crypto Clothing</h2>
+
+<p>The US government increasingly views stablecoins as a vehicle for exporting dollar dominance. If all stablecoins were a country, they would be the 16th largest holder of US Treasuries globally. Every dollar minted as USDT or USDC is a dollar of demand for US government debt, funded by crypto users.</p>
+
+<p>The irony is sharp: a technology created to escape fiat monetary policy has become one of its largest distribution channels. Stablecoin issuers earn yield on reserves while users bear all the counterparty risk. The fees flow to centralized entities, not to the networks they operate on.</p>
+
+<h2>The Opportunity Cost</h2>
+
+<p>Every dollar parked in stablecoins is capital that isn't invested in native blockchain assets. It's money that supports US Treasury yields instead of securing proof-of-work networks or providing liquidity to decentralized protocols. Stablecoins extract value from crypto ecosystems and deposit it into the traditional financial system.</p>
+
+<h2>Alternatives on the Horizon</h2>
+
+<p>The solution isn't to abandon stability &mdash; it's to build stability without centralized dependencies:</p>
+
+<ul>
+  <li><strong>Reflexer's RAI</strong> &mdash; A purely crypto-native stable asset backed only by ETH, with no peg to the dollar</li>
+  <li><strong>Flatcoins (SPOT, NUON)</strong> &mdash; Track inflation or purchasing power rather than dollar parity, reducing fiat dependency</li>
+  <li><strong>Energy-based stablecoins</strong> &mdash; Currency whose value is derived from proof-of-work energy expenditure, with no external oracles or collateral required</li>
+</ul>
+
+<p>The last category is the most promising because it requires no trusted third party at all. If a token's value is intrinsically tied to the energy required to produce it, its stability mechanism is physics, not promises. No bank accounts to freeze. No collateral to seize. No oracle to manipulate.</p>
+
+<p>Stablecoins solved crypto's usability problem. Now we need to solve the stablecoin problem &mdash; before the dependencies they've created undermine the sovereignty that made crypto worth building in the first place.</p>
+
+</div>
+
+<div class="back-link">
+  <a href="../index.html#writing">&larr; Back to homepage</a>
+</div>
+
+</div>
+
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track"><div class="scroll-thumb"></div></div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

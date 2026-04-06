@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Considering Bitcoin as an Energy Dollar — Alan Orwick</title>
+<meta name="description" content="Why Bitcoin's design limitations prevent it from being an energy-denominated medium of exchange.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+body {
+  margin: 0; padding: 0;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px; line-height: 1.6; color: #000; background: #2c3a1e;
+  -webkit-font-smoothing: none;
+}
+
+.desktop {
+  min-height: 100vh; padding: 24px 20px 40px;
+  background:
+    url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='%23313f23'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%232d3a1f' opacity='0.5'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #2e3e1e 0%, #2c3a1e 50%, #263218 100%);
+  position: relative; cursor: crosshair;
+}
+
+.desktop::before {
+  content: ''; position: fixed; inset: 0; opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px; pointer-events: none;
+}
+
+.window { max-width: 760px; margin: 0 auto; background: #fff; border: 2px solid #000; box-shadow: 4px 4px 0 rgba(0,0,0,0.4); cursor: default; }
+.window a { cursor: pointer; }
+
+.titlebar { background: #fff; border-bottom: 2px solid #000; padding: 3px 8px 3px 6px; display: flex; align-items: center; height: 20px; position: relative; }
+.titlebar::before { content: ''; position: absolute; left: 28px; right: 8px; top: 3px; bottom: 3px; background: repeating-linear-gradient(0deg, #000 0px, #000 1px, #fff 1px, #fff 3px); }
+
+.close-box { width: 13px; height: 13px; border: 1px solid #000; background: #fff; flex-shrink: 0; position: relative; z-index: 1; cursor: default; }
+.close-box:hover::before { content: ''; border-top: 1.5px solid #000; transform: rotate(45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:hover::after { content: ''; border-top: 1.5px solid #000; transform: rotate(-45deg); position: absolute; top: 5px; left: 1px; width: 10px; height: 0; }
+.close-box:active { background: #000; }
+.close-box:active:hover::before, .close-box:active:hover::after { border-color: #fff; }
+
+.title-text { position: relative; z-index: 1; background: #fff; padding: 0 8px; margin: 0 auto; font-size: 12px; font-weight: bold; white-space: nowrap; letter-spacing: 0.02em; }
+
+.menubar { background: #fff; border-bottom: 1px solid #000; padding: 2px 10px; display: flex; gap: 16px; font-size: 12px; }
+.menubar a { color: #000; text-decoration: none; padding: 1px 4px; }
+.menubar a:hover { background: #000; color: #fff; }
+
+.content { padding: 20px 28px 28px; background: #fff; }
+
+a { color: #000; text-decoration: underline; }
+a:hover { background: #000; color: #fff; text-decoration: none; }
+
+.article-header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #000; }
+.article-header h1 { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; font-size: 30px; font-weight: 500; color: #000; margin: 0 0 4px 0; line-height: 1.2; }
+.article-meta { font-size: 10px; color: #666; font-family: Monaco, 'Courier New', monospace; }
+
+.article-body { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; line-height: 1.75; color: #111; }
+.article-body p { margin: 0 0 16px 0; }
+.article-body h2 { font-family: 'EB Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: #000; margin: 28px 0 10px 0; padding-bottom: 4px; border-bottom: 1px solid #000; }
+.article-body ul { margin: 0 0 16px 0; padding-left: 24px; font-size: 17px; }
+.article-body li { margin-bottom: 6px; line-height: 1.7; }
+.article-body strong { color: #000; }
+
+.back-link { display: inline-block; margin-top: 20px; padding-top: 12px; border-top: 2px solid #000; font-size: 12px; }
+
+.bottom-scroll { background: #fff; border-top: 1px solid #000; height: 16px; display: flex; align-items: center; }
+.scroll-track { flex: 1; height: 100%; background: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, #bbb 1px, #bbb 2px); border-left: 1px solid #000; border-right: 1px solid #000; position: relative; }
+.scroll-thumb { position: absolute; left: 10px; top: 1px; bottom: 1px; width: 60px; background: #fff; border: 1px solid #000; }
+.scroll-arrow { width: 16px; height: 100%; border-left: 1px solid #000; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #000; cursor: default; }
+.scroll-arrow-l { border-right: 1px solid #000; border-left: none; }
+.size-box { width: 16px; height: 16px; border-left: 1px solid #000; background: linear-gradient(135deg, transparent 60%, #000 60%, #000 65%, transparent 65%, transparent 72%, #000 72%, #000 77%, transparent 77%, transparent 84%, #000 84%, #000 89%, transparent 89%); }
+
+@media (max-width: 700px) { .desktop { padding: 12px 8px; } .content { padding: 14px 16px 20px; } .article-header h1 { font-size: 24px; } }
+@media (max-width: 480px) { .desktop { padding: 0; } .window { border-width: 1px; box-shadow: none; } .content { padding: 10px 12px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="desktop">
+<div class="window">
+
+<div class="titlebar">
+  <a href="../index.html" style="text-decoration:none"><div class="close-box"></div></a>
+  <span class="title-text">Considering Bitcoin as an Energy Dollar</span>
+</div>
+
+<div class="menubar">
+  <a href="../index.html">Home</a>
+  <a href="../index.html#writing">All Writing</a>
+</div>
+
+<div class="content">
+
+<div class="article-header">
+  <h1>Considering Bitcoin as an Energy Dollar</h1>
+  <div class="article-meta">Why Bitcoin pioneered energy-secured currency but can't be an energy-denominated medium of exchange &middot; Alan Orwick</div>
+</div>
+
+<div class="article-body">
+
+<p>In response to my prior article, "The Case for an Energy Dollar," I received numerous questions about how this concept relates to Bitcoin. Many readers were intrigued by the similarities between the two systems, as both recognize the fundamental role of energy in creating economic value. In fact, other writings have directly equated Bitcoin to being an "Energy Dollar" in the same sense of the hypothetical Energy Dollar proposed in my prior work.</p>
+
+<p>It's important to note that this comparison is not intended to be anti-Bitcoin. Bitcoin has undeniably paved the way for cryptocurrency adoption and has valuable properties as a Store of Value. The Energy Dollar concept doesn't negate Bitcoin's importance or potential; rather, it represents an exploration of alternative approaches within the cryptocurrency design space.</p>
+
+<p>The intent of the Energy Dollar is to create a unit of account with stable purchasing power, allowing the pricing of goods and services. The Energy Dollar would accurately reflect real-world value by linking its production cost to energy via Proof-of-Work mining.</p>
+
+<p>While Bitcoin pioneered the concept of an energy-secured digital currency, its fixed supply of 21 million coins and predetermined emission schedule doesn't allow the supply to increase or decrease with a corresponding demand. This inflexibility creates a disconnect between Bitcoin's value and real-world energy production, potentially hindering its effectiveness as an accurate proxy for energy value in the long term. As a result, Bitcoin, though secured by energy, does not represent consistent real-world value, thus being inadequate as a currency.</p>
+
+<h2>Similarities</h2>
+
+<p>Bitcoin and the Energy Dollar achieve similar characteristics in pursuit of creating a global monetary system.</p>
+
+<p><strong>Decentralization</strong> &mdash; A key feature shared by both Bitcoin and the proposed Energy Dollar is their aim to remove central authority control over money creation. Bitcoin and the proposed Energy Dollar accomplish this through its vast network of distributed miners who collectively maintain the blockchain and validate transactions.</p>
+
+<p><strong>Scarcity and Inflation Control</strong> &mdash; Both systems incorporate measures to prevent arbitrary inflation, a common criticism of centrally controlled fiat currencies. Bitcoin achieves this through its fixed supply cap of 21 million coins, creating digital scarcity. The Energy Dollar, while not having a fixed cap, would be tied to the hashrate of the Proof-of-Work network (a natural proxy to energy), naturally limiting its supply based on real-world energy constraints and market demand.</p>
+
+<p><strong>Proof-of-Work</strong> &mdash; The proof-of-work mechanism is central to Bitcoin's operation, used both for reaching consensus on the state of the blockchain and for minting new coins. The Energy Dollar proposal suggests a similar concept, where individuals could contribute resources to secure the blockchain and create new currency units. This shared approach leverages computational work and resource expenditure as a means of maintaining network security and distributing new currency.</p>
+
+<h2>Differences</h2>
+
+<p>While Bitcoin and the Energy Dollar would likely look very similar in practice, the main differences arise not from an engineering perspective but rather an economic one.</p>
+
+<p><strong>Supply Mechanics</strong> &mdash; Bitcoin and the Energy Dollar differ significantly in their supply mechanisms. Bitcoin has a fixed supply cap of 21 million coins with a predetermined, diminishing issuance rate. In contrast, the Energy Dollar's supply would be proportional to the Proof-of-Work hashrate, allowing for a more dynamic and potentially expanding supply as demand for the Energy Dollar fluctuates.</p>
+
+<p>The Bitcoin halving events, occurring approximately every four years, create potential points of instability in the network's economic model. As the rate of new Bitcoin emission decreases with each halving, the Bitcoin price must significantly appreciate to maintain consistent mining revenue in dollar terms. This relationship between diminishing block rewards and the need for price appreciation is well-recognized within the Bitcoin community and presents an ongoing challenge for the long-term sustainability of the network's security model. Fundamentally, the parabolic price cycles, as well as the subsequent shocks, are a symptom of an inefficient market incapable of adjusting supply with demand.</p>
+
+<p><strong>Store of Value vs. Medium of Exchange</strong> &mdash; The Energy Dollar and Bitcoin embody fundamentally different approaches to price dynamics and economic functions. The Energy Dollar aims for price stability by tying its value to the global energy market, positioning it as a potential medium of exchange for daily transactions, similar to stablecoins. Conversely, with its fixed supply and deflationary nature, Bitcoin has evolved primarily as a store of value, often likened to "digital gold." Its tendency to appreciate over time due to scarcity makes it attractive for long-term investment but potentially less practical for everyday transactions.</p>
+
+<p>This stark contrast highlights a crucial economic principle: the most effective unit of account tends to be the best medium of exchange. A stable unit of account, like the Energy Dollar, allows for consistent pricing. When a currency maintains relatively stable purchasing power, it becomes more efficient for transactions as both buyers and sellers can confidently assess value without constantly adjusting for price fluctuations. This stability encourages its use in everyday transactions, something the Energy Dollar excels in over Bitcoin.</p>
+
+<h2>Further Challenges for Bitcoin</h2>
+
+<p><strong>Security Budget</strong> &mdash; Bitcoin's security model faces long-term challenges as its block reward diminishes. The community's anticipation of small blocks with high fees reflects a recognition of this issue, but it also raises concerns about Bitcoin's future utility and accessibility.</p>
+
+<p>Currently, the block reward primarily funds the security budget &mdash; the cost to perform a 51% attack. As this reward halves every four years, maintaining the same level of security would require Bitcoin's value to double each halving cycle for over a century, an unsustainable expectation.</p>
+
+<p>The alternative is a significant increase in transaction fees. However, this approach could price out many users from directly using the Bitcoin network, potentially relegating it to a settlement layer for large transactions only. This scenario contrasts sharply with Bitcoin's original vision as a peer-to-peer electronic cash system.</p>
+
+<p>Moreover, in a highly competitive mining environment, where profits are driven down to near-zero, the security budget closely approximates the total cost incurred by all miners. This means that as the block reward decreases, the cost of a 51% attack could also decrease, rendering Bitcoin insecure for large transactions.</p>
+
+<p><strong>Latency</strong> &mdash; Bitcoin's 10-minute average block time can result in slow transaction confirmations, limiting its usefulness for rapid or high-frequency transactions. This latency could hinder Bitcoin's adoption for certain use cases, particularly in fast-paced economic activities. As a workaround, many users have opted for platforms such as Lightning although Lightning and other Layer-2 scaling solutions for Bitcoin have yet to gain traction.</p>
+
+<p><strong>Programmability</strong> &mdash; Bitcoin's limited programmability, often seen as a drawback, actually preserves its fungibility &mdash; a critical feature for any effective medium of exchange. The introduction of more advanced programmability through protocols like BRC-20s, Ordinals, and Runes risks creating a hierarchy among bitcoins, where some become more valuable or useful based on their associated data or functions. This undermines the principle that every bitcoin should be interchangeable with another. As coins potentially become distinct or "tainted" by programmed features, Bitcoin's utility as a medium of exchange could be compromised. While innovations like OP_CAT, drivechains, and ZK proving offer new possibilities, they also introduce complexities that might further challenge Bitcoin's fungibility. Thus, Bitcoin's resistance to extensive programmability may be crucial in maintaining its core value proposition.</p>
+
+<p><strong>Ossification</strong> &mdash; Bitcoin, once a beacon of innovation, now stands as a fossilized relic in the ever-evolving blockchain landscape. Its diminishing ability to adapt to technological advancements is a slow death sentence, masked as stability. This rigidity, ironically, acts as a siren song to conservative investors, luring them with the promise of "digital gold" &mdash; an immutable store of value. Yet, this very immutability could be Bitcoin's downfall. As the blockchain world races forward, Bitcoin remains trapped in amber, a foundational but increasingly obsolete platform. Its stubborn resistance to change may well relegate it to the annals of history, while more nimble, adaptive platforms seize the future.</p>
+
+<p><strong>Privacy</strong> &mdash; Bitcoin's promise of financial freedom is a cruel illusion, shattered by the harsh reality of its transparent ledger. Every transaction is public, a feast for prying eyes and malicious actors. The so-called privacy enhancements &mdash; address reuse avoidance and mixing services &mdash; are nothing more than cumbersome disguises. This lack of privacy is not just a flaw; it's a fatal wound. Bitcoin's transparent nature transforms it from a tool of liberation into an instrument of surveillance, rendering it unusable for businesses and individuals alike. In a world crying out for financial privacy, Bitcoin stands naked and exposed, its every move traceable, its users vulnerable.</p>
+
+<h2>Conclusion</h2>
+
+<p>Bitcoin has undeniably pioneered the concept of an energy-secured digital currency and established itself as a robust store of value. However, its design limitations, particularly its fixed supply, hinder it from being considered an Energy Dollar. Furthermore, it is worthwhile to consider the challenges facing Bitcoin as it contends with emerging innovations in the blockchain industry.</p>
+
+</div>
+
+<div class="back-link">
+  <a href="../index.html#writing">&larr; Back to homepage</a>
+</div>
+
+</div>
+
+<div class="bottom-scroll">
+  <div class="scroll-arrow scroll-arrow-l">&#x25C0;</div>
+  <div class="scroll-track"><div class="scroll-thumb"></div></div>
+  <div class="scroll-arrow">&#x25B6;</div>
+  <div class="size-box"></div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
