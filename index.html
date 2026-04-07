@@ -116,6 +116,8 @@ body {
   display: flex;
   gap: 16px;
   font-size: 12px;
+  font-family: Geneva, 'Helvetica Neue', Helvetica, sans-serif;
+  -webkit-font-smoothing: none;
 }
 
 .menubar a {
@@ -138,6 +140,10 @@ body {
 .content {
   padding: 20px 28px 28px;
   background: #fff;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: auto;
 }
 
 /* ── Header ── */
@@ -157,7 +163,7 @@ body {
 }
 
 .page-header .subtitle {
-  font-size: 11px;
+  font-size: 14px;
   color: #333;
   margin-top: 4px;
   line-height: 1.5;
@@ -165,7 +171,7 @@ body {
 
 .contact-links {
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .contact-links a {
@@ -196,26 +202,24 @@ h2 {
 }
 
 h2 .snum {
-  font-family: Geneva, Helvetica, sans-serif;
-  font-size: 10px;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 14px;
   color: #555;
   font-weight: normal;
   margin-right: 5px;
-  position: relative;
-  top: -1px;
 }
 
 h3 {
-  font-family: Geneva, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: bold;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
   color: #000;
   margin: 12px 0 2px 0;
 }
 
 h3 a {
   font-weight: normal;
-  font-size: 10px;
+  font-size: 13px;
   margin-left: 4px;
 }
 
@@ -256,14 +260,20 @@ hr {
   background-position: 0 9px;
 }
 
-.bio-panel p { margin: 0 0 20px 0; }
+.bio-panel p {
+  margin: 0 0 20px 0;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 15px;
+  line-height: 20px;
+  -webkit-font-smoothing: auto;
+}
 .bio-panel p:last-child { margin-bottom: 0; }
 
 .bio-panel .lead {
   font-family: 'EB Garamond', Georgia, serif;
-  font-size: 18px;
+  font-size: 17px;
   font-style: italic;
-  line-height: 26px;
+  line-height: 20px;
   -webkit-font-smoothing: auto;
   letter-spacing: 0.01em;
 }
@@ -283,7 +293,7 @@ hr {
   padding: 10px 12px;
   border-bottom: 1px solid #aaa;
   border-right: 1px solid #aaa;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .research-grid li:nth-child(even) {
@@ -295,14 +305,14 @@ hr {
 }
 
 .research-grid li strong {
-  font-weight: bold;
+  font-weight: 600;
   display: block;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .research-grid li .detail {
-  font-size: 11px;
-  color: #555;
+  font-size: 13px;
+  color: #444;
   display: block;
   margin-top: 3px;
   line-height: 1.5;
@@ -335,17 +345,17 @@ hr {
 .project-item h3 { margin-top: 0; }
 
 .project-item p {
-  font-size: 12px;
+  font-size: 14px;
   color: #222;
   line-height: 1.6;
   margin: 2px 0 4px 0;
 }
 
 .tech-line {
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 9px;
-  color: #666;
-  letter-spacing: 0.02em;
+  font-size: 12px;
+  color: #555;
+  letter-spacing: 0.01em;
+  font-style: italic;
 }
 
 /* ── Publication ── */
@@ -358,8 +368,7 @@ hr {
 .pub-entry .pub-num {
   position: absolute;
   left: 0;
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 13px;
   color: #666;
   top: 2px;
 }
@@ -371,9 +380,8 @@ hr {
 }
 
 .pub-entry .pub-venue {
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 9px;
-  color: #666;
+  font-size: 13px;
+  color: #555;
   display: block;
   margin-top: 2px;
 }
@@ -382,7 +390,7 @@ hr {
 .repo-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #000;
 }
 
@@ -393,13 +401,14 @@ hr {
 
 .repo-table th {
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
-  padding: 3px 8px;
+  padding: 4px 8px;
+  font-family: Geneva, Helvetica, sans-serif;
 }
 
 .repo-table td {
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-bottom: 1px solid #ccc;
   vertical-align: top;
 }
@@ -420,8 +429,7 @@ hr {
 }
 
 .repo-table .rname {
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .repo-table .rname a {
@@ -430,25 +438,24 @@ hr {
 
 .repo-table .rdesc {
   color: #333;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .repo-table .rlang {
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 9px;
-  color: #666;
+  font-size: 12px;
+  color: #555;
   white-space: nowrap;
+  font-style: italic;
 }
 
 .repo-table .rstars {
-  font-family: Monaco, 'Courier New', monospace;
-  font-size: 10px;
+  font-size: 13px;
   text-align: right;
   color: #333;
 }
 
 .see-more {
-  font-size: 10px;
+  font-size: 13px;
   color: #555;
   margin-top: 6px;
 }
@@ -473,16 +480,15 @@ hr {
 
 .page-footer .quote cite {
   font-style: normal;
-  font-family: Geneva, Helvetica, sans-serif;
-  font-size: 9px;
-  color: #888;
+  font-size: 13px;
+  color: #777;
   display: block;
   margin-top: 3px;
 }
 
 .page-footer .sign-off {
-  font-size: 10px;
-  color: #888;
+  font-size: 13px;
+  color: #777;
   margin-top: 8px;
 }
 
@@ -796,10 +802,7 @@ hr {
 <!-- ════ HEADER ════ -->
 <div class="page-header">
   <h1>Alan Orwick</h1>
-  <div class="subtitle">
-    CEO, Dominant Strategies &middot; Co-Founder, Quai Network<br>
-    Visiting Scholar, UT Austin
-  </div>
+  <p class="subtitle">Blockchain, cryptocurrency, and smart contracts researcher.</p>
   <div class="contact-links">
     <a href="https://x.com/0xalank">X/@0xalank</a>
     <a href="https://github.com/0xalank">GitHub</a>
@@ -1094,7 +1097,7 @@ hr {
 <!-- ════ FOOTER ════ -->
 <div class="page-footer">
   <div class="quote">
-    Money should cost something real to produce. That's the whole idea.
+    Per aspera ad astra.
   </div>
   <p class="sign-off">
     Alan Orwick &middot; Austin, TX &middot;
